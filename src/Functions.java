@@ -2,55 +2,49 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Functions {
-
-    public void lerArquivo(String nomeArquivo) {
-        List<List<Integer>> caixas = new ArrayList();
-        BufferedReader leitor = null;
+    List<List<Integer>> boxes = new ArrayList(); //Cria um List que dentro vai outro List
+    public void readFile(String nameFile) {
+        BufferedReader reader = null;
 
         try {
-            leitor = new BufferedReader(new FileReader(nomeArquivo));
+            reader = new BufferedReader(new FileReader(nameFile));
 
-            String linha;
-            for(int numeroLinha = 0; (linha = leitor.readLine()) != null; ++numeroLinha) {
-                List<Integer> dimensions = new ArrayList();
-                String[] numeros = linha.split(" ");
+            String line;
+            int lineNumber = 0;
+            while ((line = reader.readLine()) != null) {
+                List<Integer> dimensions = new ArrayList<>();  //cria o list com as dimensões
+                String[] numbers = line.split(" ");
 
-                for(int i = 0; i < 3; ++i) {
-                    String numero = numeros[i];
-                    int valor = Integer.parseInt(numero);
-                    dimensions.add(valor);
+                for (int i = 0; i < 3; ++i) {
+                    String number = numbers[i];
+                    int value = Integer.parseInt(number);
+                    dimensions.add(value);
                 }
 
-                caixas.add(dimensions);
+                boxes.add(dimensions);
+                ++lineNumber;
             }
-
-            Iterator var22 = caixas.iterator();
-
-            while(var22.hasNext()) {
-                List<Integer> caixa = (List)var22.next();
-                System.out.println(caixa);
-            }
-        } catch (IOException var19) {
-            IOException e = var19;
+        } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo: " + e.getMessage());
         } finally {
-            if (leitor != null) {
+            if (reader != null) {
                 try {
-                    leitor.close();
-                } catch (IOException var18) {
-                    IOException e = var18;
+                    reader.close();
+                } catch (IOException e) {
                     System.out.println("Erro ao fechar o leitor: " + e.getMessage());
                 }
             }
-
         }
-
+    }
+    public void calculateBoxVolume(){
+        long cubic = 0;
+        for (int i = 0; i < boxes.size(); ++i) { //pega as três dimensões de cada caixa e calcula seu volume
+            cubic = boxes.get(i).get(0) * boxes.get(i).get(1) * boxes.get(i).get(2); // V = w * h * l
+            System.out.println("Caixa: " + i + " " +cubic);
+        }
     }
 
-    public void contagemDeCaixas() {
-    }
 }
