@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Functions {
+    ArrayList<Integer> larguras = new ArrayList();
+    ArrayList<Integer> alturas = new ArrayList();
+    ArrayList<Integer> comprimentos = new ArrayList();
 
     public void lerArquivo(String nomeArquivo) {
         List<List<Integer>> caixas = new ArrayList();
@@ -15,16 +18,32 @@ public class Functions {
             leitor = new BufferedReader(new FileReader(nomeArquivo));
 
             String linha;
-            for(int numeroLinha = 0; (linha = leitor.readLine()) != null; ++numeroLinha) {
+            int altura = 0;
+            int largura = 0;
+            int comprimento = 0;
+
+            while ((linha = leitor.readLine()) != null){
                 List<Integer> dimensions = new ArrayList();
                 String[] numeros = linha.split(" ");
 
                 for(int i = 0; i < 3; ++i) {
                     String numero = numeros[i];
                     int valor = Integer.parseInt(numero);
+                    if (i == 0) {
+                        largura = valor;
+                        larguras.add(valor);
+                    } else if (i == 1) {
+                        altura = valor;
+                        alturas.add(valor);
+                    } else {
+                        comprimento = valor;
+                        comprimentos.add(valor);
+                    }
+
                     dimensions.add(valor);
                 }
 
+                System.out.println(largura + " " + altura + " " + comprimento);
                 caixas.add(dimensions);
             }
 
@@ -48,9 +67,16 @@ public class Functions {
             }
 
         }
+        calculaCaixa();
+    }
+
+    public void calculaCaixa(){
 
     }
+
 
     public void contagemDeCaixas() {
+
     }
+
 }
