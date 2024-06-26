@@ -29,7 +29,7 @@ public class Functions {
                 lineNumber++;
             }
             for(Box box : boxes) {
-                //System.out.println(box.getId() + " " +box.getX() + " " + box.getY() + " " + box.getZ());
+                System.out.println(box.getId() + " " +box.getX() + " " + box.getY() + " " + box.getZ());
             }
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo: " + e.getMessage());
@@ -48,46 +48,23 @@ public class Functions {
         return boxes;
     }
 
-
     public Digrafo construirDigrafo() {
         Digrafo digrafo = new Digrafo(boxes.size());
-        ordenarPeloX();
         for (int i = 0; i < boxes.size(); i++) {
             Box a = boxes.get(i);
             for (int j = 0; j < boxes.size(); j++) {
                 if (i != j) {
                     Box b = boxes.get(j);
-                    if (a.canContain(b)) {
+                    if (a.canContain(b)){
                         digrafo.adicionarAresta(a, b);
                     }
+
                 }
             }
         }
         return digrafo;
     }
-
-
-
-
-
-
     public void printDigrafo(Digrafo digrafo) {
-        System.out.println("Lista de adjacências do Digrafo:");
-        System.out.println("--------------------------------");
-
-        for (int i = 0; i < digrafo.getNumVertices(); i++) {
-            List<Box> adjacentes = digrafo.adjacentes(boxes.get(i));
-            if (!adjacentes.isEmpty()) {
-                System.out.println("Caixa " + boxes.get(i).getId() + " contém:");
-                for (Box adjacente : adjacentes) {
-                    System.out.println("- Caixa " + adjacente.getId());
-                }
-                System.out.println();
-            }
-        }
-    }
-
-    public void ordenarPeloX() {
-        Collections.sort(boxes, Comparator.comparingInt(Box :: getX));
+        digrafo.imprimirDigrafo();
     }
 }

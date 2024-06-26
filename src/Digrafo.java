@@ -16,17 +16,24 @@ public class Digrafo {
     }
 
     public void adicionarAresta(Box a, Box b) {
-        if (a.canContain(b)){
-            listaAdjacencias[a.getId()].add(b);
+            listaAdjacencias[b.getId()].add(a);
             numArestas++;
-        }
     }
-
     public List<Box> adjacentes(Box box) {
         return listaAdjacencias[box.getId()];
     }
 
     public int getNumVertices() {
         return numVertices;
+    }
+    public void imprimirDigrafo() {
+        System.out.println("Lista de adjacências do Digrafo:");
+        for (int i = 0; i < numVertices; i++) {
+            System.out.print("Caixa " + i + " -> ");
+            for (Box b : listaAdjacencias[i]) {
+                System.out.print(b.getId() + " ");
+            }
+            System.out.println();
+        }
     }
 }
